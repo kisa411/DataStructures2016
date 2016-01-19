@@ -38,6 +38,7 @@ public class BirdCage {
             System.out.println("Loony has a mate");
         }
         System.out.println("Calling on loony.mate() method");
+        
         loony.mate();
         if (loony.getMate() == false) { //test hasMate() method
             System.out.println("Loony has no mate");
