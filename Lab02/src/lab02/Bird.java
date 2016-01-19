@@ -11,7 +11,7 @@ package lab02;
  */
 public class Bird {
     /**
-     * 
+     * default constructor for class Bird with parameters
      * @param number 
      */
     public Bird( int number ) { age = number; } //sets the given number as the age of the bird
@@ -48,4 +48,3 @@ public class Bird {
     public void makeNoise() {System.out.println("Chirp!");}
 }
     
-}

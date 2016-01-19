@@ -11,12 +11,7 @@ package lab02;
  */
 public class Loon extends Bird {        //a Loon is special kind of Bird
     
-    super.Bird( int number );
-    
-    /**
-     * Whether or not the bird has a mate
-     */
-    protected Boolean hasMate;
+    protected Boolean hasMate; //variable that tells whether or not the bird has a mate
     
     /**
      * Default constructor for class Loon - sets age to 0 and hasMate is false
@@ -25,6 +20,20 @@ public class Loon extends Bird {        //a Loon is special kind of Bird
         super(); 			    //this calls Bird(), so age set to 0
         hasMate = false;		    //hasMate must be initiated too
     }
+    
+    /**
+     * constructor for class Loon with parameters
+     * @param number
+     */
+    public Loon( int number ) {
+        super( number );
+        hasMate = false;
+    }
+    /**
+     * check whether or not the loon has a mate
+     * @return boolean
+     */
+    public boolean getMate() { return hasMate;} //returns whether or not the loon has a mate
     
     /**
      * overrides method from Bird, prints out "Loooon" instead of "Chirp!"

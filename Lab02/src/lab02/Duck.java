@@ -6,27 +6,37 @@
 package lab02;
 
 /**
- *
+ * default constructor for class Duck
  * @author kisa411
  */
 public class Duck extends Bird {
-    public Duck(); //default constructor
+    public Duck() { //default constructor
+        super(); //==Bird();
+    }
     
     /**
-     * method that prints waddling
+     * constructor with parameters
+     * @param age 
+     */
+    public Duck( int age ) { //constructor that allows you to set the age of the bird
+        super( age ); //==Bird( int age );
+    }
+    
+    /**
+     * makes the bird waddle
      */
     @Override
     public void move() {System.out.println("Waddling");} //overrides move() in Bird
     
     /**
-     * method that prints quack
+     * makes the bird quack
      */
     @Override
     public void makeNoise() {System.out.println("Quack");} //overrides makeNoise() in Bird
     
     /**
-     * method that ____
+     * makes the bird paddle
      */
-    public void paddle(); //method 
+    public void paddle() {System.out.println("Paddling");} //method 
     
 }
