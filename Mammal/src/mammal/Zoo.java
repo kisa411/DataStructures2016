@@ -6,7 +6,7 @@
 package mammal;
 
 /**
- *
+ * create objects of different mammals
  * @author kisa411
  */
 public class Zoo {
@@ -15,7 +15,21 @@ public class Zoo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        //make new object of Platypus
+        Platypus platypus = new Platypus("female"); //platypus is female
+        platypus.reproduce();
+        platypus.eat();
+        System.out.println("This platypus is a " + platypus.getGender() + ".");
+        platypus.move();
+        
+        System.out.println("\n");
+        
+        //make new object of Pangolin
+        Pangolin pangolin = new Pangolin("male"); //pangolin is male
+        pangolin.reproduce();
+        pangolin.eat();
+        System.out.println("This pangolin is a " + pangolin.getGender() + ".");
+        pangolin.makeNoise();
     }
     
 }
