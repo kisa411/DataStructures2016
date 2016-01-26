@@ -91,8 +91,8 @@ public class Scoreboard {
   public static void main(String[] args) {
     // The main method
     Scoreboard highscores = new Scoreboard(5);
-    String[] names = {"Robb", "Mike", "Rose", "Jill", "Jack", "Anna", "Paul", "Beth"};
-    int[] scores = {750, 999, 591, 740, 515, 668, 720, 407};
+    String[] names = {"Robb", "Mike", "Rose", "Jill", "Jack", "Anna", "Paul", "Beth"}; //names of players
+    int[] scores = {750, 999, 591, 740, 515, 668, 720, 407}; //respective scores of players
     
     
     //array of dates given as strings
@@ -100,9 +100,9 @@ public class Scoreboard {
                         "2012-02-21 15-16-38","2012-07-12 03-13-50",
                         "2012-07-12 05-10-11","2013-03-30 22-33-42",
                         "2014-06-06 01-10-59","2015-01-27 15-30-00"};
-    //create Date objects from these strings
+    //create Date objects from these strings - desired format: 01/27/2015 3:30 PM
     Date[] dates = new Date[dateStr.length];
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss"); //("MM/dd/yyyy HH:mm a");
     for (int i=0; i<dateStr.length;i++) {
         try {
             dates[i] = sdf.parse(dateStr[i]);
@@ -112,17 +112,17 @@ public class Scoreboard {
     
     //create GameEntry objects for each score, and add into the board
     for (int i=0; i < names.length; i++) {
-      GameEntry gE = new GameEntry(names[i], scores[i]);
-      System.out.println("Adding " + gE);
+      GameEntry gE = new GameEntry(names[i], scores[i], dates[i]);
+      //System.out.println("Adding " + gE); //prints out the GameEntry that's being added each time
       highscores.add(gE);
-      System.out.println("\n   Scoreboard:\n" + highscores.toString()); //line to check the order in which scores are added
+      //System.out.println("\n   Scoreboard:\n" + highscores.toString()); //line to check the order in which scores are added
     }
     
     System.out.println("\n   Scoreboard:\n" + highscores.toString());
     
     //check to see remove(1) output
-    highscores.remove(1);
-    System.out.println("\n   Scoreboard:\n" + highscores.toString());
+//    highscores.remove(1);
+//    System.out.println("\n   Scoreboard:\n" + highscores.toString());
   }
 }
     
