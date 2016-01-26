@@ -5,6 +5,7 @@
  */
 package lab03;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -54,7 +55,9 @@ public class GameEntry {
    * Returns a string representation of this entry.
    * @return a string with name and score
    */
-  public String toString() {
-    return  name + ", " + score + ", " + date;
+  @Override
+  public String toString() { // desired format of date: 01/27/2015 3:30 PM
+    String newstring = new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(date); //changes the date object passed into method into a String with the desired format
+    return  name + ", " + score + ", " + newstring;
   }
 }
