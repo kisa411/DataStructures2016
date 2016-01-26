@@ -1,0 +1,62 @@
+(a) Explain in your own words how the add method works. Why does the loop start at
+the entry with the highest index? (There’s a good reason; see the pictures in the Array
+slides if you’re stuck.)
+-The add method first checks if there's space in the array to just add the new score;
+if not, then it checks to see if the new score is greater than the lowest score. 
+If there's space in the array to just add the new score, then it incremenets numEntries
+since there's going to be more scores added to the array. If there's no space, then
+the add method needs to go through the different elements and determine which 
+elements to shift to the right (assuming the new score is greater than the lowest 
+score). If there's space then all the elements are shifted, but if there's no space
+then the elements are all over-written. 
+-The loop starts at the entry with the highest index because it needs to compare the
+element at the highest index to the element right before it, since it's trying to 
+organize the elements in decreasing order. 
+
+(b) What happens in the case of a tie? That is, if you want to add a score to the board
+and it ties an existing score, which score ends up first? Explain a simple way you could
+change the code so that the other score ends up first (don’t actually change the method).
+-If there's a tie, then the first score to show up first would be the existing score. 
+The newScore would be added after the already existing score. If you want to make the 
+newScore appear first, then you can change the '<' operator to '<=' in the 
+(board[j-1].getScore() < newScore) so then it would shift the old score even if it's
+the same as the newScore. 
+
+(c) Explain in your own words how the remove method works. Why does the loop start at
+the entry right after the one to be removed, rather than the highest index? What do
+you suppose the “IndexOutOfBoundsException” code is for?
+-The remove method first checks to make sure the given index number isn't out of the 
+array's bounds - which is why the "IndexOutOfBoundsException" is there; if the given index
+i is out of bounds, Java will throw this error message, so the remove method catches
+the error message and tells the user in a simpler way of understanding that the given
+index input was out of bounds. 
+-If the given index value is a valid index for the array, then the loop starts from 
+the given index value and until it reaches the last index of the array, it will increment.
+For each iteration of the loop, it sets the value of the index it's at to the value of the
+index after it, essentially shifting all the values to the left by one space. At the very
+end, it makes the last index element NULL since there is no value in it anymore. It also
+decrements numEntries since it took out an entry from the array. If it started at the
+highest index, then it would probably segfault since there is no element to access after
+the highest index. 
+
+(d) Take a look at the rest of the main method. Some test data is provided. (It’s okay to
+do this within the main method of class Scoreboard. We don’t have to use a new class,
+like BirdCage from Lab02.) Find where the test data is added to the scoreboard. Each
+is added as a GameEntry one at a time. Show who is on the scoreboard, in order, after
+each iteration of the loop; I’ve started for you below. Keep in mind how many high
+scores are kept.
+
+Robb
+Mike, Robb
+Mike, Robb, Rose
+Mike, Robb, Jill, Rose
+Mike, Robb, Jill, Rose, Jack
+Mike, Robb, Jill, Anna, Rose
+Mike, Robb, Jill, Paul, Anna
+Mike, Robb, Jill, Paul, Anna
+
+(e) Now what would board look like if remove(1) was called?
+
+It would look like: 
+
+Mike, Jill, Paul, Anna, NULL (although NULL wouldn't be shown)
