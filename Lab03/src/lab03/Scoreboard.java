@@ -7,8 +7,6 @@ package lab03;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class for storing high scores in an array in nondecreasing order.
@@ -20,14 +18,14 @@ public class Scoreboard {
   /** number of actual entries */
   private int numEntries = 0;              
   /** array of game entries (names & scores) */
-  private GameEntry[] board;               
+  private GameEntry[] board; //makes an array of objects of class GameEntry[] called 'board'        
   
   /** 
    * Constructs an empty scoreboard with the given capacity for storing entries. 
    * @param capacity the number of high scores board will hold
    */
-  public Scoreboard(int capacity) {
-    board = new GameEntry[capacity];
+  public Scoreboard(int capacity) { //constructor for Scoreboard
+    board = new GameEntry[capacity]; //sets the size of array of GameEntry objects
   }
 
   /**
@@ -90,7 +88,7 @@ public class Scoreboard {
    */
   public static void main(String[] args) {
     // The main method
-    Scoreboard highscores = new Scoreboard(5);
+    Scoreboard highscores = new Scoreboard(5); //instantiates an object of Scoreboard called highscores, creates an array of GameEntrys (5 spaces)
     String[] names = {"Robb", "Mike", "Rose", "Jill", "Jack", "Anna", "Paul", "Beth"}; //names of players
     int[] scores = {750, 999, 591, 740, 515, 668, 720, 407}; //respective scores of players
     
@@ -111,10 +109,10 @@ public class Scoreboard {
     }
     
     //create GameEntry objects for each score, and add into the board
-    for (int i=0; i < names.length; i++) {
-      GameEntry gE = new GameEntry(names[i], scores[i], dates[i]);
+    for (int i=0; i < names.length; i++) { //for each person in the names array
+      GameEntry gE = new GameEntry(names[i], scores[i], dates[i]); //make a GameEntry object for each person
       //System.out.println("Adding " + gE); //prints out the GameEntry that's being added each time
-      highscores.add(gE);
+      highscores.add(gE); //add GameEntry to Scoreboard
       //System.out.println("\n   Scoreboard:\n" + highscores.toString()); //line to check the order in which scores are added
     }
     
