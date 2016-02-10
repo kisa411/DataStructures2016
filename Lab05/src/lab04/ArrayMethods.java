@@ -74,14 +74,23 @@ public class ArrayMethods {
             }
         }
     }   
-      
+    
+    /**
+     * Wrapper method for quicksort sorting algorithm
+     * @param data to sort
+     */ 
+    public static void quickSort(int[] data) {
+        int n=data.length;
+        quickSort(data, 0, n-1); 
+    }
+    
     /**
      * QuickSort method - binary recursive algorithm for sorting
      * @param data to sort
      * @param low left end
      * @param high right end
      */
-    public static void quickSort(int[] data, int low, int high) {
+    private static void quickSort(int[] data, int low, int high) {
         int ell = low, r = high - 1;                 
         // Note: a lowercase l and the number 1 are very similar -- not good to
         // use as a variable name!
@@ -89,43 +98,59 @@ public class ArrayMethods {
         // pivot is at end
         int pivot = data[high];                      
         // Divide into higher/lower portions
-        while (ell <= r) {
-            // Find an element in left list that's larger than pivot (if exits)
-            while (ell <= r && data[l] < pivot) {
-                ell++;
+        while (ell <= r) { //base case
+            // Find an element in left list that's larger than pivot (if exists)
+            while (ell <= r && data[ell] < pivot) {
+                ell++; //loop will continue to run until it finds an element on the left that's bigger than the pivot
             }
             // Find an element in right list that's smaller than pivot (if exists)
             while (ell <= r && data[r] > pivot) {
-                r--;
+                r--; //loop will continue to run until it finds an element on the right that's smaller than the pivot
             }
             // If l is still to the left of r, swap these values
-            if (ell <= r) {
-                // TO-DO: Swap the values
-                ell++;
-                r--;
+            if (ell <= r) { //Swap the values
+                int temp = data[ell]; //store left value
+                data[ell] = data[r]; //store right value in left value position
+                data[r] = temp; //store temp value (what was previously the left value) in the right value position
+                ell++; //increment lower bound
+                r--; //decrement upper bound
             }
         }
-        // TO-DO: Swap pivot into correct location 
+        //Swap pivot into correct location - put pivot in between l and r
+        if(data[ell] >= data[high]) { //if the element at ell is greater than or equal to the pivot value, place pivot before ell
+            int temp = data[ell]; 
+            data[ell] = data[high];
+            data[high] = temp;
+        }
         
         // Recursion
-        if (low < r) {
+        if (low < r) { //sort the lower half 
             quickSort(data, low, r);
         }
-        if (ell < high) {
+        if (ell < high) { //sort the upper half
             quickSort(data, ell, high);
         }
     }
 
+    /**
+     * Wrapper method for mergesort sorting algorithm
+     * @param data to sort
+     */ 
+    public static void mergeSort(int[] data) {
+        int n=data.length;
+        mergeSort(data, 0, n-1); 
+    }
+    
     /**
      * MergeSort method - binary recursive algorithm for sorting
      * @param data to sort
      * @param low left end
      * @param high right end
      */
-    public static void mergeSort(int[] data, int low, int high) {
-        int[] helper = new int[data.length];    
+    private static void mergeSort(int[] data, int low, int high) {
+        int[] helper = new int[data.length];  //new array with same number of indexes as data array  
         
-        if (low < high) {                           // otherwise the array is sorted
+        if (low < high) {                           // base case - otherwise the array is sorted
             int middle = low + (high - low) / 2;    // get middle index
             mergeSort(data, low, middle);           // sort left side
             mergeSort(data, middle + 1, high);      // sort right side
@@ -142,7 +167,14 @@ public class ArrayMethods {
             // note that helper[low] through helper[middle] is the sorted left half
             // and that helper[middle+1] through helper[high] is the sorted right half 
             while (i <= middle && j <= high) {
-                // TO-DO: do the copying described above
+                if( helper[i] <= helper[j] ) { //if helper array from lowest value to middle value is smaller than from middle+1 value
+                    data[k] = helper[i]; //assign lowest value in data array to the helper lowest value 
+                    i++; //increment i so that you can look at the next lowest value
+                } else {
+                    data[k] = helper[j];
+                    j++;
+                }
+                k++;
             }
             // Copy the rest of the left side of the array into the target array
             // Note: only left side can have entries left, and only at most one,
@@ -166,15 +198,14 @@ public class ArrayMethods {
        
         int[] test1 = test.clone(); //clone of test array for insertion sort
         int[] test2 = test.clone(); //clone of test array for selection sort
-        System.out.println(Arrays.toString(test2));
-        int[] test3 = test.clone(); //clone of test array for bubble sort
+//        System.out.println(Arrays.toString(test2));
+//        int[] test3 = test.clone(); //clone of test array for bubble sort
         
-         
-        quickSort(test1, 0, 9);                                 // quick sort test 1
-        System.out.println(Arrays.toString(test1));
-        
-        mergeSort(test2, 0, 9);                                 // merge sort test 2
-        System.out.println(Arrays.toString(test2));
+//        mergeSort(test2, 0, test2.length-1);                                 // merge sort test 2
+//        System.out.println(Arrays.toString(test2)); 
+//        
+//        quickSort(test1, 0, test1.length-1);                                 // quick sort test 1
+//        System.out.println(Arrays.toString(test1));
         
         
 //        insertionSort(test1);                                 // insertion sort test 1
@@ -186,6 +217,13 @@ public class ArrayMethods {
 //        bubbleSort(test3);                                 // bubble sort test 3
 //        System.out.println(Arrays.toString(test3));
 //        
+
+        mergeSort(test2);                                                      // merge sort test 2 (using wrapper)
+        System.out.println(Arrays.toString(test2)); 
+        
+        quickSort(test1);                                                      // quick sort test 1 (using wrapper)
+        System.out.println(Arrays.toString(test1));
+        
         /*checking the running time of the sorting algorithms*/
         Random rand = new Random();                           // pseudorandom # generator
         rand.setSeed(System.currentTimeMillis());             // set seed for rand
@@ -199,50 +237,50 @@ public class ArrayMethods {
 //        System.out.println(Arrays.toString(rtest));
         
         //create clones of the random test array for the other sorting algorithms to sort the arrays
-        int[] rtest1 = rtest.clone();
-        int[] rtest2 = rtest.clone();
-        int[] rtest3 = rtest.clone();
-        int[] rtest4 = rtest.clone();
-        int[] rtest5 = rtest.clone();
+//        int[] rtest1 = rtest.clone();
+//        int[] rtest2 = rtest.clone();
+//        int[] rtest3 = rtest.clone();
+//        int[] rtest4 = rtest.clone();
+//        int[] rtest5 = rtest.clone();
                 
-        //time the insertionSort method
-        long startTime = System.currentTimeMillis();          // save current time
-        insertionSort(rtest1); 
-        long endTime = System.currentTimeMillis();            // save current time
-        System.out.println("Insertion Sort Time: "); 
-        System.out.println(endTime - startTime);              // find elasped time
-//        System.out.println(Arrays.toString(rtest1));
-        
-        //time the selectionSort method
-        long startTime2 = System.currentTimeMillis();          // save current time
-        selectionSort(rtest2); 
-        long endTime2 = System.currentTimeMillis();            // save current time
-        System.out.println("Selection Sort Time: "); 
-        System.out.println(endTime2 - startTime2);              // find elasped time
-//        System.out.println(Arrays.toString(rtest2));
-        
-        //time the bubbleSort method
-        long startTime3 = System.currentTimeMillis();          // save current time
-        bubbleSort(rtest3); 
-        long endTime3 = System.currentTimeMillis();            // save current time
-        System.out.println("Bubble Sort Time: "); 
-        System.out.println(endTime3 - startTime3);              // find elasped time
-//        System.out.println(Arrays.toString(rtest3));
+//        //time the insertionSort method
+//        long startTime = System.currentTimeMillis();          // save current time
+//        insertionSort(rtest1); 
+//        long endTime = System.currentTimeMillis();            // save current time
+//        System.out.println("Insertion Sort Time: "); 
+//        System.out.println(endTime - startTime);              // find elasped time
+////        System.out.println(Arrays.toString(rtest1));
+//        
+//        //time the selectionSort method
+//        long startTime2 = System.currentTimeMillis();          // save current time
+//        selectionSort(rtest2); 
+//        long endTime2 = System.currentTimeMillis();            // save current time
+//        System.out.println("Selection Sort Time: "); 
+//        System.out.println(endTime2 - startTime2);              // find elasped time
+////        System.out.println(Arrays.toString(rtest2));
+//        
+//        //time the bubbleSort method
+//        long startTime3 = System.currentTimeMillis();          // save current time
+//        bubbleSort(rtest3); 
+//        long endTime3 = System.currentTimeMillis();            // save current time
+//        System.out.println("Bubble Sort Time: "); 
+//        System.out.println(endTime3 - startTime3);              // find elasped time
+////        System.out.println(Arrays.toString(rtest3));
 
         //time the quickSort method
-        long startTime4 = System.currentTimeMillis();          // save current time
-        quickSort(rtest4, 0, rtest4.length-1); 
-        long endTime4 = System.currentTimeMillis();            // save current time
-        System.out.println("Quick Sort Time: "); 
-        System.out.println(endTime4 - startTime4);              // find elasped time
+//        long startTime4 = System.currentTimeMillis();          // save current time
+//        quickSort(rtest4, 0, rtest4.length-1); 
+//        long endTime4 = System.currentTimeMillis();            // save current time
+//        System.out.println("Quick Sort Time: "); 
+//        System.out.println(endTime4 - startTime4);              // find elasped time
 //        System.out.println(Arrays.toString(rtest4));
         
         //time the mergeSort method
-        long startTime5 = System.currentTimeMillis();          // save current time
-        mergeSort(rtest5, 0, rtest5.length-1); 
-        long endTime5 = System.currentTimeMillis();            // save current time
-        System.out.println("Merge Sort Time: "); 
-        System.out.println(endTime5 - startTime5);              // find elasped time
+//        long startTime5 = System.currentTimeMillis();          // save current time
+//        mergeSort(rtest5, 0, rtest5.length-1); 
+//        long endTime5 = System.currentTimeMillis();            // save current time
+//        System.out.println("Merge Sort Time: "); 
+//        System.out.println(endTime5 - startTime5);              // find elasped time
 //        System.out.println(Arrays.toString(rtest5));
         
         
